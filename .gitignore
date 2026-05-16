@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Hyperledger Fabric samples and generated network state
+fabric-samples/
+
+# Downloaded installer helper
+install-fabric.sh
+
+# Local machine notes and secrets
+Ubuntu hyper chat linux user.txt
+*.env
+*.pem
+*.key
+*.crt
+
+# Logs and runtime output
+*.log
+log.txt
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
