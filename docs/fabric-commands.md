@@ -144,3 +144,66 @@ Expected behavior before Org2 is added:
 ```text
 Caller ... is not a member of group group1
 ```
+
+## Add Org2 And Verify Access
+
+Switch back to Org1:
+
+```bash
+export CORE_PEER_LOCALMSPID="Org1MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp
+export CORE_PEER_ADDRESS=localhost:7051
+```
+
+Add Org2 user:
+
+```bash
+peer chaincode invoke \
+  -o localhost:7050 \
+  --ordererTLSHostnameOverride orderer.example.com \
+  --tls \
+  --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
+  -C hyperchat \
+  -n hyperchat \
+  --peerAddresses localhost:7051 \
+  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
+  --peerAddresses localhost:9051 \
+  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" \
+  -c '{"function":"AddMember","Args":["group2","User1@org2.example.com"]}'
+```
+
+Switch to Org2:
+
+```bash
+export CORE_PEER_LOCALMSPID="Org2MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp
+export CORE_PEER_ADDRESS=localhost:9051
+```
+
+Read messages as Org2:
+
+```bash
+peer chaincode query \
+  -C hyperchat \
+  -n hyperchat \
+  -c '{"function":"GetMessages","Args":["group2"]}'
+```
+
+Send a message as Org2:
+
+```bash
+peer chaincode invoke \
+  -o localhost:7050 \
+  --ordererTLSHostnameOverride orderer.example.com \
+  --tls \
+  --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" \
+  -C hyperchat \
+  -n hyperchat \
+  --peerAddresses localhost:7051 \
+  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" \
+  --peerAddresses localhost:9051 \
+  --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" \
+  -c '{"function":"SendMessage","Args":["group2","msg2","Hello from Org2"]}'
+```

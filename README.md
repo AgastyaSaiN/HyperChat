@@ -59,6 +59,8 @@ Completed:
 - First group `group1` was created on the ledger.
 - First message `msg1` was written to the ledger.
 - `GetMessages` returned the stored message successfully.
+- Identity cleanup was verified with clean senders like `User1@org1.example.com`.
+- Org2 was blocked before membership, then allowed after Org1 admin added it.
 
 Implemented chaincode functions:
 
@@ -109,10 +111,9 @@ Done:
 
 Next:
 
-1. Clean up identity display so `User1@org1.example.com` is stored instead of the full X.509 subject string.
-2. Test membership permissions with Org2.
-3. Build a Node.js API that calls the chaincode.
-4. Build a simple React chat frontend.
+1. Build a Node.js API that calls the chaincode.
+2. Build a simple React chat frontend.
+3. Polish the demo flow and setup docs.
 
 ## Commands
 

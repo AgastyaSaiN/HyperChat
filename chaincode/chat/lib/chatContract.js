@@ -136,7 +136,7 @@ class ChatContract extends Contract {
 
   _getCallerId(ctx) {
     const clientId = ctx.clientIdentity.getID();
-    const match = clientId.match(/::CN=([^:/]+)(?:::|$)/);
+    const match = clientId.match(/(?:^|\/)CN=([^/:]+)/);
     return match ? match[1] : clientId;
   }
 
@@ -162,4 +162,3 @@ class ChatContract extends Contract {
 }
 
 module.exports = ChatContract;
-

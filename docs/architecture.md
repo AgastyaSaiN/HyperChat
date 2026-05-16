@@ -28,7 +28,7 @@ The ledger currently stores two document types:
 }
 ```
 
-The full X.509 identity string is currently stored. This works, but it is noisy. A near-term cleanup is to store a friendlier display identity such as `User1@org1.example.com`.
+The first successful run stored the full X.509 identity string. The chaincode has since been updated and verified to extract the certificate common name, so fresh records use a friendlier identity such as `User1@org1.example.com`.
 
 ### Message
 

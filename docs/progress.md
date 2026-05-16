@@ -15,6 +15,21 @@ Message sent: msg1
 Messages queried successfully
 ```
 
+Latest verified flow:
+
+```text
+Identity cleanup deployed
+Group created: group2
+Group admin stored as: User1@org1.example.com
+Message sent: msg1
+Message sender stored as: User1@org1.example.com
+Org2 read before membership: correctly rejected
+Org1 admin added: User1@org2.example.com
+Org2 read after membership: succeeded
+Org2 message sent: msg2
+Message sender stored as: User1@org2.example.com
+```
+
 Successful chaincode query:
 
 ```bash
@@ -101,11 +116,11 @@ Fix:
 docker pull hyperledger/fabric-nodeenv:2.5
 ```
 
-## Current Technical Debt
+## Current Chaincode Update
 
 ### Identity Formatting
 
-The chaincode currently stores the full X.509 identity string for `admin`, `members`, and `sender`.
+The first successful run stored the full X.509 identity string for `admin`, `members`, and `sender`.
 
 Example:
 
@@ -113,28 +128,92 @@ Example:
 x509::/C=US/ST=California/L=San Francisco/OU=client/CN=User1@org1.example.com::/C=US/ST=California/L=San Francisco/O=org1.example.com/CN=ca.org1.example.com
 ```
 
-This is valid but not friendly. Next we should improve `_getCallerId()` in:
-
-```text
-chaincode/chat/lib/chatContract.js
-```
-
-Target display value:
+The chaincode has been updated and verified to extract the certificate common name from that identity:
 
 ```text
 User1@org1.example.com
 ```
 
-Because ledger state already contains old full IDs, this cleanup should be tested on a fresh network restart or with a new group ID.
+Verified group:
+
+```json
+{
+  "docType": "group",
+  "groupId": "group2",
+  "name": "Clean Identity Test",
+  "admin": "User1@org1.example.com",
+  "members": ["User1@org1.example.com"],
+  "createdAt": "2026-05-16T10:54:34.612Z"
+}
+```
+
+Verified message:
+
+```json
+[
+  {
+    "docType": "message",
+    "messageId": "msg1",
+    "groupId": "group2",
+    "sender": "User1@org1.example.com",
+    "text": "Identity cleanup worked",
+    "createdAt": "2026-05-16T10:55:53.849Z"
+  }
+]
+```
+
+Verified Org2 rejection before membership:
+
+```text
+Caller User1@org2.example.com is not a member of group group2
+```
+
+Verified add-member result:
+
+```json
+{
+  "docType": "group",
+  "groupId": "group2",
+  "name": "Clean Identity Test",
+  "admin": "User1@org1.example.com",
+  "members": ["User1@org1.example.com", "User1@org2.example.com"],
+  "createdAt": "2026-05-16T10:54:34.612Z"
+}
+```
+
+Verified final message history:
+
+```json
+[
+  {
+    "docType": "message",
+    "messageId": "msg1",
+    "groupId": "group2",
+    "sender": "User1@org1.example.com",
+    "text": "Identity cleanup worked",
+    "createdAt": "2026-05-16T10:55:53.849Z"
+  },
+  {
+    "docType": "message",
+    "messageId": "msg2",
+    "groupId": "group2",
+    "sender": "User1@org2.example.com",
+    "text": "Hello from Org2",
+    "createdAt": "2026-05-16T10:59:19.164Z"
+  }
+]
+```
+
+Changed file:
+
+```text
+chaincode/chat/lib/chatContract.js
+```
+
+The existing `group1` ledger state from the first run still contains old full IDs. New groups use clean identity values.
 
 ## Next Engineering Steps
 
-1. Improve identity parsing in chaincode.
-2. Redeploy chaincode with a new version or restart the test network.
-3. Test Org2 permissions:
-   - Org2 should fail before being added.
-   - Org1 admin should add Org2.
-   - Org2 should then read/send messages.
-4. Add a small API using Node.js and Fabric Gateway.
-5. Add a simple frontend after the API works.
-
+1. Add a small API using Node.js and Fabric Gateway.
+2. Expose endpoints for group creation, member addition, message sending, and message reading.
+3. Add a simple frontend after the API works.
