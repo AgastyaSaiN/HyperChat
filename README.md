@@ -1,0 +1,122 @@
+# HyperChat
+
+HyperChat is a first Hyperledger Fabric project: a simple permissioned group chat where messages are written to the ledger as immutable transactions.
+
+## Version 1 Goal
+
+Build a minimal group chat with these rules:
+
+- A registered user can create a group.
+- The group creator becomes the group admin.
+- Only the group admin can add members.
+- Only group members can send messages.
+- Only group members can read messages.
+- Every sent message is stored on the Fabric ledger.
+
+## Architecture
+
+```text
+React frontend
+    |
+Node.js Express API
+    |
+Fabric Gateway SDK
+    |
+Hyperledger Fabric network
+    |
+Chat chaincode
+```
+
+## Project Layout
+
+```text
+HyperChat/
+  HANDOFF.md
+  chaincode/
+    chat/
+      index.js
+      package.json
+      README.md
+  api/
+    README.md
+  web/
+    README.md
+  docs/
+    architecture.md
+```
+
+## Current Status
+
+The first milestone is complete: Fabric can store and read HyperChat group/message data.
+
+Completed:
+
+- Docker Desktop works from WSL Ubuntu.
+- Fabric samples, binaries, and Docker images are installed.
+- The Fabric test network starts successfully.
+- Channel `hyperchat` was created.
+- Chaincode `hyperchat` was deployed and committed.
+- First group `group1` was created on the ledger.
+- First message `msg1` was written to the ledger.
+- `GetMessages` returned the stored message successfully.
+
+Implemented chaincode functions:
+
+```text
+InitLedger()
+CreateGroup(groupId, name)
+AddMember(groupId, memberId)
+SendMessage(groupId, messageId, text)
+GetGroup(groupId)
+GetMessages(groupId)
+```
+
+## Local Prerequisites
+
+Use the default WSL `Ubuntu` distro for Fabric work.
+
+Verified working:
+
+- Docker
+- Node.js
+- npm
+- Git
+- jq
+- Hyperledger Fabric samples and binaries
+
+Important path:
+
+```text
+C:\Summer_Phase\L1\HyperChat
+```
+
+Inside Ubuntu:
+
+```bash
+/mnt/c/Summer_Phase/L1/HyperChat
+```
+
+Do not use paths with spaces for Fabric's `network.sh` scripts.
+
+## Build Roadmap
+
+Done:
+
+1. Set up a local Hyperledger Fabric test network.
+2. Write the chat chaincode.
+3. Deploy the chaincode to the test network.
+4. Test group/message transactions from the command line.
+
+Next:
+
+1. Clean up identity display so `User1@org1.example.com` is stored instead of the full X.509 subject string.
+2. Test membership permissions with Org2.
+3. Build a Node.js API that calls the chaincode.
+4. Build a simple React chat frontend.
+
+## Commands
+
+See [docs/fabric-commands.md](docs/fabric-commands.md) for the commands to start the Fabric test network, deploy the HyperChat chaincode, and test the first group/message transactions.
+
+See [docs/progress.md](docs/progress.md) for the learning log and next engineering steps.
+"# HyperChat" 
