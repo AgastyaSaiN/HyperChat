@@ -214,6 +214,56 @@ The existing `group1` ledger state from the first run still contains old full ID
 
 ## Next Engineering Steps
 
-1. Add a small API using Node.js and Fabric Gateway.
-2. Expose endpoints for group creation, member addition, message sending, and message reading.
-3. Add a simple frontend after the API works.
+## API Milestone
+
+The Express API now runs and talks to Fabric Gateway.
+
+Verified API behavior:
+
+```text
+GET /health: succeeded
+GET /whoami?org=org1: User1@org1.example.com
+GET /whoami?org=org2: User1@org2.example.com
+POST /groups?org=org1: created group-api-1
+POST /groups/group-api-1/messages?org=org1: sent msg-api-1
+GET /groups/group-api-1/messages?org=org1: read messages
+GET /groups/group-api-1/messages?org=org2: rejected before membership
+POST /groups/group-api-1/members?org=org1: added User1@org2.example.com
+```
+
+Next checks:
+
+1. Read `group-api-1` as Org2 after membership.
+2. Send `msg-api-2` as Org2 through the API.
+3. Build a simple frontend after the API flow is fully verified.
+
+## Frontend Milestone
+
+The React frontend has been scaffolded in:
+
+```text
+web/
+```
+
+Implemented UI capabilities:
+
+- Switch between Org1 and Org2.
+- Create or load a group.
+- Add a member.
+- Send messages.
+- Refresh message history.
+- Display Fabric permission errors returned by the API.
+
+Run:
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+The API must be running at:
+
+```text
+http://localhost:3000
+```

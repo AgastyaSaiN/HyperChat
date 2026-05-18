@@ -61,6 +61,8 @@ Completed:
 - `GetMessages` returned the stored message successfully.
 - Identity cleanup was verified with clean senders like `User1@org1.example.com`.
 - Org2 was blocked before membership, then allowed after Org1 admin added it.
+- Express API was added and verified against Fabric Gateway for Org1 group/message operations and Org2 pre-membership rejection.
+- React frontend scaffold was added under `web/`.
 
 Implemented chaincode functions:
 
@@ -111,8 +113,8 @@ Done:
 
 Next:
 
-1. Build a Node.js API that calls the chaincode.
-2. Build a simple React chat frontend.
+1. Install frontend dependencies and run the Vite dev server.
+2. Verify the UI can create groups, add members, and send/read messages through the API.
 3. Polish the demo flow and setup docs.
 
 ## Commands
@@ -120,4 +122,6 @@ Next:
 See [docs/fabric-commands.md](docs/fabric-commands.md) for the commands to start the Fabric test network, deploy the HyperChat chaincode, and test the first group/message transactions.
 
 See [docs/progress.md](docs/progress.md) for the learning log and next engineering steps.
+
+See [docs/runbook.md](docs/runbook.md) for the full reset, startup, verification, and shutdown flow.
 "# HyperChat" 

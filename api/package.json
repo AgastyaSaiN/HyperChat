@@ -1,0 +1,20 @@
+{
+  "name": "hyperchat-api",
+  "version": "0.1.0",
+  "description": "Express API for the HyperChat Hyperledger Fabric project",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.0",
+    "@hyperledger/fabric-gateway": "^1.10.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
+
