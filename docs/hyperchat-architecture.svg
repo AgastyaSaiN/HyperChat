@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">HyperChat Hyperledger Fabric Architecture</title>
+  <desc id="desc">Architecture diagram showing React frontend, Express API, Fabric Gateway, Hyperledger Fabric channel, peers, orderer, chaincode, and ledger.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#31556f"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#1c2b3a" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#eef2f6"/>
+
+  <text x="640" y="56" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700" fill="#152334">
+    HyperChat Project Architecture
+  </text>
+  <text x="640" y="88" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#526071">
+    Permissioned group chat using Hyperledger Fabric
+  </text>
+
+  <rect x="56" y="142" width="254" height="120" rx="10" fill="#ffffff" stroke="#bfd0dc" filter="url(#shadow)"/>
+  <text x="183" y="180" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#173247">React Frontend</text>
+  <text x="183" y="210" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">Org switcher, group UI, chat UI</text>
+  <text x="183" y="235" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">Runs at localhost:5173</text>
+
+  <rect x="392" y="142" width="254" height="120" rx="10" fill="#ffffff" stroke="#bfd0dc" filter="url(#shadow)"/>
+  <text x="519" y="180" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#173247">Express API</text>
+  <text x="519" y="210" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">REST routes for groups/messages</text>
+  <text x="519" y="235" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">Runs at localhost:3000</text>
+
+  <rect x="728" y="142" width="254" height="120" rx="10" fill="#ffffff" stroke="#bfd0dc" filter="url(#shadow)"/>
+  <text x="855" y="180" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#173247">Fabric Gateway</text>
+  <text x="855" y="210" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">Uses Org1/Org2 certificates</text>
+  <text x="855" y="235" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">Submits and evaluates transactions</text>
+
+  <line x1="310" y1="202" x2="392" y2="202" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="351" y="190" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#526071">HTTP JSON</text>
+
+  <line x1="646" y1="202" x2="728" y2="202" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="687" y="190" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#526071">gRPC</text>
+
+  <rect x="80" y="338" width="1120" height="300" rx="16" fill="#dfe8ef" stroke="#aab9c7"/>
+  <text x="640" y="376" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700" fill="#173247">
+    Hyperledger Fabric Test Network
+  </text>
+  <text x="640" y="402" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#526071">
+    Channel: hyperchat | Chaincode: hyperchat
+  </text>
+
+  <rect x="132" y="454" width="230" height="110" rx="10" fill="#ffffff" stroke="#91a8b9" filter="url(#shadow)"/>
+  <text x="247" y="492" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#173247">Peer Org1</text>
+  <text x="247" y="520" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">peer0.org1.example.com</text>
+  <text x="247" y="544" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">Endorses transactions</text>
+
+  <rect x="416" y="454" width="230" height="110" rx="10" fill="#ffffff" stroke="#91a8b9" filter="url(#shadow)"/>
+  <text x="531" y="492" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#173247">Peer Org2</text>
+  <text x="531" y="520" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">peer0.org2.example.com</text>
+  <text x="531" y="544" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">Endorses transactions</text>
+
+  <rect x="700" y="454" width="210" height="110" rx="10" fill="#ffffff" stroke="#91a8b9" filter="url(#shadow)"/>
+  <text x="805" y="492" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#173247">Orderer</text>
+  <text x="805" y="520" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">Orders valid transactions</text>
+  <text x="805" y="544" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">Commits blocks</text>
+
+  <rect x="964" y="454" width="180" height="110" rx="10" fill="#ffffff" stroke="#91a8b9" filter="url(#shadow)"/>
+  <text x="1054" y="492" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#173247">Ledger</text>
+  <text x="1054" y="520" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">Groups</text>
+  <text x="1054" y="544" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#526071">Immutable messages</text>
+
+  <rect x="472" y="304" width="336" height="76" rx="10" fill="#1d718a" stroke="#15566a" filter="url(#shadow)"/>
+  <text x="640" y="334" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">Chat Chaincode</text>
+  <text x="640" y="360" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#e6f4f8">CreateGroup, AddMember, SendMessage, GetMessages</text>
+
+  <line x1="855" y1="262" x2="690" y2="304" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="640" y1="380" x2="302" y2="454" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="640" y1="380" x2="532" y2="454" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="646" y1="510" x2="700" y2="510" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="910" y1="510" x2="964" y2="510" stroke="#31556f" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <text x="640" y="676" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#526071">
+    Verified flow: Org1 creates group and adds Org2; both members can send/read ledger-backed messages.
+  </text>
+</svg>

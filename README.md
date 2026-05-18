@@ -124,4 +124,6 @@ See [docs/fabric-commands.md](docs/fabric-commands.md) for the commands to start
 See [docs/progress.md](docs/progress.md) for the learning log and next engineering steps.
 
 See [docs/runbook.md](docs/runbook.md) for the full reset, startup, verification, and shutdown flow.
+
+See [docs/project-report.md](docs/project-report.md) for the structured project report with screenshot placeholders.
 "# HyperChat" 

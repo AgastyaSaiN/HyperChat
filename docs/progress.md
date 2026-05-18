@@ -267,3 +267,11 @@ The API must be running at:
 ```text
 http://localhost:3000
 ```
+
+## Architecture Diagram
+
+A project architecture diagram is available at:
+
+```text
+docs/hyperchat-architecture.svg
+```
